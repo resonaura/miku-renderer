@@ -23,7 +23,7 @@ steps:
 
         echo "📥  Step 2: обновляем репозиторий"
         cd /home/miku/miku-renderer
-        git pull origin release
+        git pull --quiet origin release
 
         echo "📦  Step 3: устанавливаем зависимости"
         npm install
