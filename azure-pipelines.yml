@@ -22,7 +22,9 @@ steps:
       inline: |
         echo "🔑  Step 1: connecting to SSH"
         echo "📥  Step 2: pulling latest changes"
-        cd /home/miku
+        cd /home/miku/miku-renderer
+        pwd
+        
         git pull origin release
 
         echo "📦  Step 3: installing dependencies"
