@@ -7,6 +7,7 @@ import { queue } from "./index.js";
 import { buildFFmpegCommand } from "../graph.js";
 import { normalizeProject } from "../validate.js";
 import { Project } from "../types.js";
+import { ensureDir } from "src/utils/fs.js";
 
 export function enqueueBuild(json: any): string {
   const taskId = uuid();
@@ -24,7 +25,7 @@ async function runBuild(taskId: string, json: any) {
       db.updateTask(taskId, "processing", `packing-inputs (try ${attempt})`);
       // создаём tmp‐директорию
       const tmp = path.join(storageDir, "tmp", taskId);
-      await fs.mkdir(tmp);
+      await ensureDir(tmp);
       const inputJson = path.join(tmp, "input.json");
       await fs.writeFile(inputJson, JSON.stringify(json));
 
