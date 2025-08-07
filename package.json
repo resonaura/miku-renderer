@@ -4,7 +4,8 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "tsc -p .",
+    "build": "tsc --build && npm run copy-schema",
+    "copy-schema": "mkdir -p dist/database && cp src/database/schema.sql dist/database/",
     "start": "node dist/index.js",
     "generate:token": "tsx src/scripts/generate.token.ts",
     "dev": "tsx watch src/index.ts",

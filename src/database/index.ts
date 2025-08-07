@@ -1,4 +1,3 @@
-// src/db/Database.ts
 import path from "path";
 import SQLite from "better-sqlite3";
 import { DatabaseMigrationModule } from "./dbmm.js";

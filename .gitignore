@@ -3,3 +3,4 @@ dist
 output.mp4
 storage
 .env
+package-lock.json

@@ -1,5 +1,3 @@
-// src/db/interfaces.ts
-
 /** Статусы задачи сборки видео */
 export type TaskStatus = "pending" | "processing" | "success" | "failed";
 

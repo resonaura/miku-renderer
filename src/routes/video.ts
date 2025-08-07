@@ -1,6 +1,6 @@
 import { FastifyPluginAsync } from "fastify";
 import { enqueueBuild } from "../queue/processor.js";
-import { db } from "src/config/index.js";
+import { db } from "../config/index.js";
 
 const videos: FastifyPluginAsync = async (f) => {
   f.post(
