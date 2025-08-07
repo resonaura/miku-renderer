@@ -15,24 +15,24 @@ steps:
       sshEndpoint: "Kitty Server (Miku)"
       runOptions: inline
       inline: |
-        echo "🔑  Step 1: подключаем nvm"
+        echo "🔑  Step 1: connecting nvm"
         export NVM_DIR="$HOME/.nvm"
         # если nvm установлен через стандартный инсталлятор:
         [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
         # подхватить нужную версию Node (можно заменить на вашу)
         nvm use 22.18.0
 
-        echo "📥  Step 2: обновляем репозиторий"
+        echo "📥  Step 2: updating repo"
         cd /home/miku/miku-renderer
         git pull --quiet origin release
 
-        echo "📦  Step 3: устанавливаем зависимости"
+        echo "📦  Step 3: installing deps"
         npm install
 
-        echo "🏗️  Step 4: билдим проект"
+        echo "🏗️  Step 4: building project"
         npm run build
 
-        echo "🔄  Step 5: рестартим приложение через pm2"
+        echo "🔄  Step 5: pm2 restart"
         pm2 restart renderer
 
         echo "✅  Deployment on branch release completed successfully"
