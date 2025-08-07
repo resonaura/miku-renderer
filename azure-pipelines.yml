@@ -6,10 +6,6 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-variables:
-  PROJECT_ROOT: $(PROJECT_ROOT)
-  PM2_APP_NAME: $(PM2_APP_NAME)
-
 steps:
   # 1. Install Node.js
   - task: NodeTool@0
