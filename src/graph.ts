@@ -298,13 +298,13 @@ export async function buildFFmpegCommand(
   ffArgs.push("-map", "[Vcat]", "-map", "[Afinal]");
   ffArgs.push("-t", totalDuration.toFixed(6));
 
-  if (_hwAccel === "cuda") {
-    ffArgs.push("-c:v", "h264_nvenc", "-rc", "vbr_hq", "-cq", "16");
-  } else if (_hwAccel === "qsv") {
-    ffArgs.push("-c:v", "h264_qsv", "-global_quality", "23");
-  } else {
-    ffArgs.push("-c:v", "libx264", "-preset", "veryslow", "-crf", "16");
-  }
+  // if (_hwAccel === "cuda") {
+  //   ffArgs.push("-c:v", "h264_nvenc", "-rc", "vbr_hq", "-cq", "16");
+  // } else if (_hwAccel === "qsv") {
+  //   ffArgs.push("-c:v", "h264_qsv", "-global_quality", "23");
+  // } else {
+  //   ffArgs.push("-c:v", "libx264", "-preset", "veryslow", "-crf", "16");
+  // }
   // далее без изменений:
   ffArgs.push(
     "-pix_fmt",
