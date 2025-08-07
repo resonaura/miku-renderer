@@ -7,33 +7,31 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-  # 1. Install Node.js
-  - task: NodeTool@0
-    inputs:
-      versionSpec: '20.x'
-    displayName: '⚙️  Install Node.js'
-
   # 2. SSH deploy
   - task: SSH@0
-    displayName: '🔐  Connect via SSH & Deploy'
+    displayName: "🔐  Connect via SSH & Deploy"
     inputs:
-      sshEndpoint: 'Kitty Server (Miku)'
+      sshEndpoint: "Kitty Server (Miku)"
       runOptions: inline
       inline: |
-        echo "🔑  Step 1: connecting to SSH"
-        echo "📥  Step 2: pulling latest changes"
+        echo "🔑  Step 1: подключаем nvm"
+        export NVM_DIR="$HOME/.nvm"
+        # если nvm установлен через стандартный инсталлятор:
+        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+        # подхватить нужную версию Node (можно заменить на вашу)
+        nvm use 22.18.0
+
+        echo "📥  Step 2: обновляем репозиторий"
         cd /home/miku/miku-renderer
-        pwd
-        
         git pull origin release
 
-        echo "📦  Step 3: installing dependencies"
+        echo "📦  Step 3: устанавливаем зависимости"
         npm install
 
-        echo "🏗️  Step 4: building the project"
+        echo "🏗️  Step 4: билдим проект"
         npm run build
 
-        echo "🔄  Step 5: restarting the app"
+        echo "🔄  Step 5: рестартим приложение через pm2"
         pm2 restart renderer
 
         echo "✅  Deployment on branch release completed successfully"
