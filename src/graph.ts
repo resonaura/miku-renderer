@@ -281,15 +281,15 @@ export async function buildFFmpegCommand(
   // 6. Собираем ffmpeg args
   const ffArgs: string[] = ["-y"];
 
-  if (_hwAccel) {
-    ffArgs.push("-hwaccel", _hwAccel);
-    if (_hwAccel === "cuda") {
-      ffArgs.push("-hwaccel_output_format", "cuda");
-    } else if (_hwAccel === "qsv") {
-      // чтобы FFmpeg сразу выбрал QSV-декодер
-      ffArgs.push("-c:v", "h264_qsv");
-    }
-  }
+  // if (_hwAccel) {
+  //   ffArgs.push("-hwaccel", _hwAccel);
+  //   if (_hwAccel === "cuda") {
+  //     ffArgs.push("-hwaccel_output_format", "cuda");
+  //   } else if (_hwAccel === "qsv") {
+  //     // чтобы FFmpeg сразу выбрал QSV-декодер
+  //     ffArgs.push("-c:v", "h264_qsv");
+  //   }
+  // }
 
   for (const inp of inputs) {
     ffArgs.push(...inp.args);
