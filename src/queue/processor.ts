@@ -7,7 +7,7 @@ import { queue } from "./index.js";
 import { buildFFmpegCommand } from "../graph.js";
 import { normalizeProject } from "../validate.js";
 import { Project } from "../types.js";
-import { ensureDir } from "src/utils/fs.js";
+import { ensureDir } from "../utils/fs.js";
 
 export function enqueueBuild(json: any): string {
   const taskId = uuid();
