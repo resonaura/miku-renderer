@@ -1,0 +1,32 @@
+{
+  "name": "miku-renderer",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "tsc -p .",
+    "start": "node dist/index.js",
+    "generate:token": "tsx src/scripts/generate.token.ts",
+    "dev": "tsx watch src/index.ts",
+    "render": "tsx src/cli.ts input.example.json output.mp4",
+    "dev:render": "tsx watch src/cli.ts input.example.json output.mp4"
+  },
+  "dependencies": {
+    "@fastify/static": "^8.2.0",
+    "better-sqlite3": "^12.2.0",
+    "cli-highlight": "^2.1.11",
+    "dotenv": "^17.2.1",
+    "fastify": "^5.4.0",
+    "p-queue": "^8.1.0",
+    "sql-ddl-to-json-schema": "^6.0.0",
+    "uuid": "^11.1.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^24.2.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.20.3",
+    "typescript": "^5.9.2"
+  }
+}
