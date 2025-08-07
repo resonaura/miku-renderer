@@ -15,6 +15,14 @@ export async function bootstrap(): Promise<void> {
 
   // 2) Хук проверки токена на всё остальное
   app.addHook("onRequest", async (request, reply) => {
+    const url = request.raw.url || "";
+
+    // Если запрашивают статику — выходим без проверки
+    if (url.startsWith("/outputs/")) {
+      return;
+    }
+
+    // Иначе — проверяем токен
     const auth = request.headers.authorization;
     const rawToken =
       typeof auth === "string" && auth.startsWith("Bearer ")
