@@ -1,0 +1,45 @@
+trigger:
+  branches:
+    include:
+      - release
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  # Define these in Library or Pipeline variables (mark secrets as needed)
+  SSH_ENDPOINT: SSHConnection         # your SSH service connection name
+  SERVER_USER: $(SERVER_USER)        # set in Pipeline variables
+  SERVER_ADDRESS: $(SERVER_ADDRESS)
+  PROJECT_ROOT: $(PROJECT_ROOT)
+  PM2_APP_NAME: $(PM2_APP_NAME)
+
+steps:
+  # 1. Install Node.js
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '20.x'
+    displayName: '⚙️  Install Node.js'
+
+  # 2. SSH deploy
+  - task: SSH@0
+    displayName: '🔐  Connect via SSH & Deploy'
+    inputs:
+      sshEndpoint: $(SSH_ENDPOINT)
+      runOptions: inline
+      inline: |
+        echo "🔑  Step 1: connecting to ${SERVER_USER}@${SERVER_ADDRESS}"
+        echo "📥  Step 2: pulling latest changes"
+        cd ${PROJECT_ROOT}
+        git pull origin release
+
+        echo "📦  Step 3: installing dependencies"
+        npm install
+
+        echo "🏗️  Step 4: building the project"
+        npm run build
+
+        echo "🔄  Step 5: restarting the app"
+        pm2 restart ${PM2_APP_NAME}
+
+        echo "✅  Deployment on branch release completed successfully"
