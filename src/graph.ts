@@ -250,18 +250,24 @@ export async function buildFFmpegCommand(
   let overlayIndex = nextInputIndex;
   for (let k = 0; k < audioClips.length; k++) {
     const ac = audioClips[k];
-    const s = convertTimecodeToSeconds(ac.start, fps);
+    const s = convertTimecodeToSeconds(ac.start, fps); // позиция на таймлайне
     const e = convertTimecodeToSeconds(ac.end, fps);
-    const d = +(e - s).toFixed(6);
+    const d = +(e - s).toFixed(6); // длительность на таймлайне
+
+    const off = ac.offset ? convertTimecodeToSeconds(ac.offset, fps) : 0; // <- НОВОЕ
 
     inputs.push({ args: ["-i", ac.filename], describe: `ovA_${k}` });
+
+    // Режем из источника с учётом off, затем сдвигаем на таймлайне через adelay
     filters.push(
-      `[${overlayIndex}:a]atrim=0:${d},asetpts=PTS-STARTPTS,adelay=${Math.round(
-        s * 1000
-      )}|${Math.round(s * 1000)},volume=${
-        ac.volume ?? 1
-      },aformat=sample_rates=48000:channel_layouts=stereo[ov${k}]`
+      `[${overlayIndex}:a]` +
+        `atrim=start=${off}:end=${(off + d).toFixed(6)},` +
+        `asetpts=PTS-STARTPTS,` +
+        `adelay=${Math.round(s * 1000)}|${Math.round(s * 1000)},` +
+        `volume=${ac.volume ?? 1},` +
+        `aformat=sample_rates=48000:channel_layouts=stereo[ov${k}]`
     );
+
     oLabs.push(`[ov${k}]`);
     overlayIndex++;
   }

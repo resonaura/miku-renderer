@@ -48,6 +48,7 @@ export interface ImageClip extends BaseClip {
 export interface AudioClip extends BaseClip {
   type: "audio";
   volume?: number;
+  offset?: Timecode;
 }
 
 export interface Timeline {
