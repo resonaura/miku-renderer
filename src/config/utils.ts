@@ -82,14 +82,17 @@ export async function generateEnvExample(path = ".env.example") {
     target.push(lines.join("\n"));
   }
 
-  const output = [
-    "## 📌 Required environment variables",
-    ...required,
-    "",
-    "## 💡 Optional environment variables",
-    ...optional,
-    "",
-  ].join("\n");
+  const sections: string[] = [];
+
+  if (required.length > 0) {
+    sections.push("## 📌 Required environment variables", ...required, "");
+  }
+
+  if (optional.length > 0) {
+    sections.push("## 💡 Optional environment variables", ...optional, "");
+  }
+
+  const output = sections.join("\n");
 
   await writeFile(path, output);
   console.log(`Generated ${path}`);
