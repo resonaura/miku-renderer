@@ -5,6 +5,7 @@
 [![Engine](https://img.shields.io/badge/Engine-FFmpeg%20%7C%20Fastify-007808.svg?logo=ffmpeg&logoColor=white)](src/graph.ts)
 [![Queue](https://img.shields.io/badge/Queue-SQLite%20%7C%20P--Queue-003B57.svg?logo=sqlite&logoColor=white)](src/queue)
 
+[![Sponsor on GitHub](https://img.shields.io/badge/Sponsor%20on%20GitHub-EA4AAA?logo=github-sponsors&logoColor=white)](https://github.com/sponsors/resonaura)
 [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-FFDD00?logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/resonaura)
 
 A declarative, high-performance Node.js & FFmpeg video rendering engine. Takes structured JSON timelines and programmatically renders multi-track video compositions with transitions, audio balancing, overlays, and queue concurrency.
